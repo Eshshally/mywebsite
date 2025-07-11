@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shally's Design Portfolio</title>
+  <style>
+    /* ====== Base Styling ======*/
+    :root {
+      --primary:#800020; /* maroon/burgundy */
+      --light:#f5f5f5;
+      --dark:#222;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--dark);}
+    header{background:var(--primary);color:#fff;padding:1rem 2rem;}
+    header h1{margin:0;font-size:2rem;font-weight:600;letter-spacing:.5px;}
+
+    /* ====== Slider ======*/
+    .slider{position:relative;max-width:900px;margin:2rem auto;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,.15);}    
+    .slides img{width:100%;display:none;}
+    .slides img.active{display:block;animation:fade 1s ease-in-out;}
+    @keyframes fade{from{opacity:.2}to{opacity:1}}
+
+    /* ====== Controls =====*/
+    .nav-btn{cursor:pointer;position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.4);border:none;color:#fff;font-size:2rem;line-height:1;padding:.2rem .8rem;border-radius:4px;transition:background .3s;}
+    .nav-btn:hover{background:rgba(0,0,0,.6);}    
+    .prev{left:10px;}
+    .next{right:10px;}
+
+    /* ====== Footer =====*/
+    footer{text-align:center;padding:1rem;color:#666;font-size:.9rem;}
+
+    /* ====== Responsive tweaks =====*/
+    @media(max-width:600px){
+      header h1{font-size:1.5rem;}
+      .nav-btn{font-size:1.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shally's Design Portfolio</h1>
+  </header>
+
+  <section class="slider" aria-label="Portfolio slideshow">
+    <button class="nav-btn prev" aria-label="Previous slide">&#10094;</button>
+    <div class="slides">
+      <!-- Replace src values with your own images in /images folder -->
+      <img src="images/work1.png" alt="Project 1 screenshot" class="active">
+      <img src="images/work2.png" alt="Project 2 screenshot">
+      <img src="images/work3.png" alt="Project 3 screenshot">
+      <img src="images/work4.png" alt="Project 4 screenshot">
+    </div>
+    <button class="nav-btn next" aria-label="Next slide">&#10095;</button>
+  </section>
+
+  <footer>
+    &copy; 2025 Shally. All rights reserved.
+  </footer>
+
+  <script>
+    // ====== Simple slider logic (no external libraries) ======
+    const slides = document.querySelectorAll('.slides img');
+    let idx = 0;
+    const show = n => {
+      slides.forEach((img,i)=>img.classList.toggle('active', i===n));
+    };
+    document.querySelector('.next').addEventListener('click', ()=>{
+      idx = (idx+1)%slides.length;
+      show(idx);
+    });
+    document.querySelector('.prev').addEventListener('click', ()=>{
+      idx = (idx-1+slides.length)%slides.length;
+      show(idx);
+    });
+    // Auto‑advance every 5s
+    setInterval(()=>{
+      idx = (idx+1)%slides.length;
+      show(idx);
+    }, 5000);
+  </script>
+</body>
+</html>
